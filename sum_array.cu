@@ -29,17 +29,17 @@ __global__ void sumArray(const float *input, float *output, int N) {
   float sum = 0.0f;
   if (i < N) {
     sum += input[i];
-    printf("Thread %d in Block %d processing element %d\n", tid, blockIdx.x, i);
-    printf("Value: %f\n", input[i]);
-    printf("Sum so far in Thread %d: %f\n", tid, sum);
+    // printf("Thread %d in Block %d processing element %d\n", tid, blockIdx.x,
+    // i); printf("Value: %f\n", input[i]); printf("Sum so far in Thread %d:
+    // %f\n", tid, sum);
   }
   if (i + blockDim.x < N) {
     sum += input[i + blockDim.x];
-    printf("2nd Element Processing:\n");
-    printf("Thread %d in Block %d processing element %d\n", tid, blockIdx.x,
-           i + blockDim.x);
-    printf("Value: %f\n", input[i + blockDim.x]);
-    printf("Sum so far in Thread %d: %f\n", tid, sum);
+    // printf("2nd Element Processing:\n");
+    // printf("Thread %d in Block %d processing element %d\n", tid,
+    // blockIdx.x,
+    //        i + blockDim.x);
+    // printf("Value: %f\n", input[i + blockDim.x]);
   }
   sharedData[tid] = sum;
 
@@ -58,7 +58,7 @@ __global__ void sumArray(const float *input, float *output, int N) {
 }
 
 int main() {
-  int N = 1 << 5; // 1,048,576 elements
+  int N = 1 << 20; // 1,048,576 elements
   const int threadsPerBlock = THREADS_PER_BLOCK;
   const int blocks = calculateGridSize(N, threadsPerBlock);
 
