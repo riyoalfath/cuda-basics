@@ -53,7 +53,6 @@ int main() {
   double Cpu_sum = 0;
   for (int i = 0; i < N; i++)
     Cpu_sum += h_array[i];
-  printf("CPU sum: %f\n", Cpu_sum);
 
   double *d_input, *d_output;
   checkCudaErrors(cudaMalloc(&d_input, N * sizeof(double)));
@@ -73,7 +72,10 @@ int main() {
   double Gpu_sum = 0;
   for (int i = 0; i < blocks; i++)
     Gpu_sum += h_output[i];
+
   printf("GPU sum: %f\n", Gpu_sum);
+  printf("CPU sum: %f\n", Cpu_sum);
+
   checkCudaErrors(cudaFree(d_input));
   checkCudaErrors(cudaFree(d_output));
   delete[] h_array;
